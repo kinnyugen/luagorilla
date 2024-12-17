@@ -4,6 +4,17 @@
 
 local LuaMonke = {
     version = "0.0.1", -- incase u wanna check metadata
+
+    BuildEvent = function()
+        local event = {}
+        eventCallback = {}
+
+        event:Connect = function(callback)
+            event.Callback += callback
+        end,
+
+        return event
+    end,
 }
 
 local Enum = {
@@ -68,4 +79,7 @@ Room.LobbyType = Enum.LobbyType.None
 Room.Players = {} -- table of all players in the code
 Room.PlayerCount = #Room.Players -- # of players
 
+Room.OnPlayerJoined = LuaMonke.BuildEvent()
+Room.OnConnection = LuaMonke.BuildEvent()
+Room.OnDisconnection = LuaMonke.BuildEvent()
 return LuaMonke, Enum, Debug, Gorilla, Room
